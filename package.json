@@ -1,0 +1,34 @@
+{
+  "name": "toolmgr",
+  "private": true,
+  "version": "0.1.0",
+  "description": "AitoolMgr — AI programming tool & OpenClaw Agent monitoring command center",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "npm run build -w @aitoolmgr/contracts && npm run build -w @aitoolmgr/adapter-sdk && npm run build -w @toolmgr/core && npm run build -w @toolmgr/notify-feishu && npm run build -w @toolmgr/adapters && npm run build -w @toolmgr/agent && npm run build -w @toolmgr/desktop",
+    "test": "npm run build -w @aitoolmgr/contracts && npm run test -w @aitoolmgr/contracts",
+    "dev:agent": "npm run dev -w @toolmgr/agent",
+    "dev:desktop": "npm run dev -w @toolmgr/desktop",
+    "dev": "npm run build -w @aitoolmgr/contracts && npm run build -w @aitoolmgr/adapter-sdk && npm run build -w @toolmgr/core && npm run build -w @toolmgr/notify-feishu && npm run build -w @toolmgr/adapters && concurrently -k \"npm run dev -w @toolmgr/agent\" \"npm run dev -w @toolmgr/desktop\"",
+    "start:agent": "npm run start -w @toolmgr/agent",
+    "start": "node scripts/start.mjs",
+    "start:win": "scripts\\start-windows.cmd",
+    "start:mac": "bash scripts/start-macos.sh",
+    "pack:win": "npm run build && npm run pack:win -w @toolmgr/desktop",
+    "pack:mac": "npm run build && npm run pack:mac -w @toolmgr/desktop",
+    "pack:deps": "npm install -D electron@35 electron-builder@25 --no-fund --no-audit",
+    "smoke": "node scripts/smoke.mjs",
+    "e2e": "node scripts/e2e.mjs",
+    "typecheck": "npm run typecheck -w @toolmgr/core && npm run typecheck -w @toolmgr/adapters && npm run typecheck -w @toolmgr/agent && npm run typecheck -w @toolmgr/desktop"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "typescript": "^5.8.2"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

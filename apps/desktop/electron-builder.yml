@@ -1,0 +1,81 @@
+{
+  "appId": "com.toolmgr.app",
+  "productName": "ToolMgr",
+  "copyright": "Copyright © ToolMgr",
+  "directories": {
+    "output": "release",
+    "buildResources": "build"
+  },
+  "files": [
+    "dist/**/*",
+    "electron/**/*",
+    "package.json"
+  ],
+  "extraResources": [
+    {
+      "from": "../../packages/agent/dist",
+      "to": "agent",
+      "filter": ["**/*"]
+    },
+    {
+      "from": "../../packages/core/dist",
+      "to": "agent/node_modules/@toolmgr/core/dist",
+      "filter": ["**/*"]
+    },
+    {
+      "from": "../../packages/adapters/dist",
+      "to": "agent/node_modules/@toolmgr/adapters/dist",
+      "filter": ["**/*"]
+    },
+    {
+      "from": "../../packages/notify-feishu/dist",
+      "to": "agent/node_modules/@toolmgr/notify-feishu/dist",
+      "filter": ["**/*"]
+    }
+  ],
+  "win": {
+    "target": [
+      {
+        "target": "nsis",
+        "arch": ["x64"]
+      },
+      {
+        "target": "portable",
+        "arch": ["x64"]
+      }
+    ],
+    "artifactName": "ToolMgr-Setup-${version}-win-${arch}.${ext}"
+  },
+  "nsis": {
+    "oneClick": false,
+    "allowToChangeInstallationDirectory": true,
+    "createDesktopShortcut": true,
+    "createStartMenuShortcut": true,
+    "shortcutName": "ToolMgr"
+  },
+  "mac": {
+    "target": [
+      {
+        "target": "dmg",
+        "arch": ["x64", "arm64"]
+      },
+      {
+        "target": "zip",
+        "arch": ["x64", "arm64"]
+      }
+    ],
+    "category": "public.app-category.developer-tools",
+    "hardenedRuntime": true,
+    "artifactName": "ToolMgr-${version}-mac-${arch}.${ext}"
+  },
+  "dmg": {
+    "contents": [
+      { "x": 130, "y": 220 },
+      { "x": 410, "y": 220, "type": "link", "path": "/Applications" }
+    ]
+  },
+  "linux": {
+    "target": ["AppImage"],
+    "category": "Development"
+  }
+}
